@@ -67,10 +67,10 @@ async def process_prompt(state: State, prompt: str) -> Tuple[dict, State]:
     ).update(prompt=prompt)
 
 @action(reads=["prompt"], writes=["chat_history", "response"])
-async def do_search(state: State) -> Tuple[dict, State]:
+def do_search(state: State) -> Tuple[dict, State]:
     query = state["prompt"]
     try:
-        response = await search.qna_search(query=query, search_depth="advanced")
+        response = search.qna_search(query=query, search_depth="advanced")
         result = {
             "response": {
                 "content": response,
@@ -78,10 +78,10 @@ async def do_search(state: State) -> Tuple[dict, State]:
                 "role": "search_engine",
             }
         }
-    except Exception:
+    except Exception as e:
         result = {
             "response": {
-                "content": "Error performing search",
+                "content": "Error performing search engine query: " + str(e),
                 "type": "text",
                 "role": "search_engine",
             }
@@ -226,7 +226,9 @@ async def chat_response(state: State, prepend_prompt: str) -> AsyncGenerator[Tup
 async def unsafe_response(state: State) -> Tuple[dict, State]:
     result = {
         "response": {
+            "content": "I'm afraid I can't answer ...",
             "type": "text",
+            "role": "assistant",
         },
         "mode": "unknown",
     }
