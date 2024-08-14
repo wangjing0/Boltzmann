@@ -1,5 +1,2 @@
-# About
-Boltzmann: Define a DAG, and LLM runs on State Machine
-
-
+# DAG
 ![Boltzmann](statemachine.png)
