@@ -1,2 +1,3 @@
-# DAG
-![Boltzmann](statemachine.png)
+# Directed Acyclic Graph (DAG)
+
+![Demo DAG](statemachine.png)
